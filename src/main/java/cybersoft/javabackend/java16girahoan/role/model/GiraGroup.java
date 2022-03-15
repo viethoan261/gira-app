@@ -8,8 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import cybersoft.javabackend.java16girahoan.common.model.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,4 +33,17 @@ public class GiraGroup extends BaseEntity {
 		inverseJoinColumns = @JoinColumn(name = "role_id")
 	)
 	private Set<GiraRole> roles = new LinkedHashSet();
+	public void addRole(GiraRole role) {
+		roles.add(role);
+		role.getGroups().add(this);
+	}
+	
+	public void removeRole(GiraRole role) {
+		roles.remove(role);
+		role.getGroups().remove(this);
+	}
+	
+	public void clearRole() {
+		this.roles.clear();
+	}
 }
