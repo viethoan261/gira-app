@@ -1,13 +1,14 @@
 package cybersoft.javabackend.java16girahoan.role.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,10 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import cybersoft.javabackend.java16girahoan.common.util.ResponseHelper;
 import cybersoft.javabackend.java16girahoan.role.dto.GiraGroupDTO;
 import cybersoft.javabackend.java16girahoan.role.dto.GiraGroupWithRolesDTO;
-import cybersoft.javabackend.java16girahoan.role.dto.GiraRoleDTO;
-import cybersoft.javabackend.java16girahoan.role.model.GiraRole;
 import cybersoft.javabackend.java16girahoan.role.service.GiraGroupService;
-import cybersoft.javabackend.java16girahoan.role.service.GiraRoleService;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
