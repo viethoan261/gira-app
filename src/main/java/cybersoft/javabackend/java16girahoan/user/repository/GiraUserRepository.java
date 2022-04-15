@@ -14,7 +14,7 @@ import cybersoft.javabackend.java16girahoan.user.model.GiraUser;
 
 @Repository
 public interface GiraUserRepository extends JpaRepository<GiraUser, UUID> {
-	@Query("SELCT u FROM GiraUser u LEFT JOIN FETCH u.groups WHERE u.username = ?1")
+	@Query("SELECT u FROM GiraUser u LEFT JOIN FETCH u.groups WHERE u.username = ?1")
 	Optional<GiraUser> findByUsername(String username);
 
 	Optional<GiraUser> findByEmail(String email);
