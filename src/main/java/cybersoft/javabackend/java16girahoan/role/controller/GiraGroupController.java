@@ -31,10 +31,30 @@ public class GiraGroupController {
 	
 	@GetMapping
 	public Object findAllGroups() {
-		log.info("find all gira groups...");
-		List<GiraGroupDTO> groups = service.findAllDto();
+		// thread pool: size? 
+		// imperative vs reactive - callback hell - async await
+		// concurrent - multi thread - join - thread pool
+		// reactor
 		
+		// unify imperative and reactive code
+		log.info("Find all gira groups STARTED");
+		log.debug("calling GiraGroupService.findAllDto()");
+		List<GiraGroupDTO> groups = service.findAllDto();
+		log.debug("result: {}", groups);
+		
+		log.info("Find all gira groups STOPPED");
 		return ResponseHelper.getResponse(groups, HttpStatus.OK);
+	}
+	
+	@GetMapping("{group-id}")
+	public Object findGroupById(@PathVariable("group-id") String groupId) {
+		GiraGroupWithRolesDTO group = service.findById(groupId);
+		
+		if (group == null) {
+			return ResponseHelper.getErrorResponse("Group is not existed.", HttpStatus.BAD_REQUEST);
+		}
+		
+		return ResponseHelper.getResponse(group, HttpStatus.OK);
 	}
 	
 	@PostMapping

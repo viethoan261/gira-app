@@ -31,8 +31,19 @@ public class GiraRoleController {
 	
 	@GetMapping
 	public Object findAllRoles() {
-		List<GiraRole> roles = service.findAllEntity();
+		List<GiraRoleDTO> roles = service.findAllEntity();
 		return new ResponseEntity<>(roles, HttpStatus.OK);
+	}
+	
+	@GetMapping("/{role-id}")
+	public Object findRoleById (@PathVariable("role-id") String id) {
+		GiraRole role = service.findById(id);
+		
+		if (role == null) {
+			return ResponseHelper.getErrorResponse("Role is not existed.", HttpStatus.BAD_REQUEST);
+		}
+		
+		return ResponseHelper.getResponse(role, HttpStatus.OK);
 	}
 	
 	@PostMapping
@@ -48,31 +59,20 @@ public class GiraRoleController {
 		return new ResponseEntity<>(role, HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/{role-id}")
-	public Object findRoleById (@PathVariable("role-id") String id) {
-		GiraRole role = service.findById(id);
-		if(role == null)
-		{
-			return ResponseHelper.getErrorResponse("Role is not existed", HttpStatus.BAD_REQUEST);
-
-		}
-		return ResponseHelper.getResponse(role, HttpStatus.OK);
-		
-		
-	}
 	@PutMapping("/{role-id}")
-	public Object updateRole(@PathVariable("role-id") String id, @RequestBody @Valid GiraRoleDTO dto,
-			BindingResult bindingResult) {
-		
-		if(bindingResult.hasErrors()) {
+	public Object updateRole(@PathVariable("role-id") String id, 
+							@RequestBody @Valid GiraRoleDTO dto,
+							BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
 			return ResponseHelper.getErrorResponse(bindingResult, HttpStatus.BAD_REQUEST);
 		}
+		
 		GiraRole updatedRole = service.update(UUID.fromString(id), dto);
 		
-		if(updatedRole == null) {
-			return ResponseHelper.getErrorResponse("Role code is used", HttpStatus.BAD_REQUEST);
+		if (updatedRole == null) {
+			return ResponseHelper.getErrorResponse("Role code is used.", HttpStatus.BAD_REQUEST);
 		}
-		return ResponseHelper.getResponse(updatedRole, HttpStatus.OK );
+		
+		return ResponseHelper.getResponse(updatedRole, HttpStatus.OK);
 	}
-	
 }
