@@ -7,10 +7,12 @@ import java.util.UUID;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Setter
+@Builder
 public class GiraRoleDTO {
 	private UUID id;
 	
@@ -19,4 +21,6 @@ public class GiraRoleDTO {
 	
 	@NotBlank(message = "Description must be not blank.")
 	private String description;
+
+	
 }
